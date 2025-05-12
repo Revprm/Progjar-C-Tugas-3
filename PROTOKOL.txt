@@ -1,0 +1,42 @@
+FILE SERVER
+TUJUAN: melayani client dalam request file server
+
+ATURAN PROTOKOL:
+- Client mengirimkan request dalam bentuk string
+- Format umum: <REQUEST> spasi <PARAMETER1> [<PARAMETER2>]
+- Semua response dikirim sebagai JSON diikuti terminator "\r\n\r\n"
+
+REQUEST YANG DILAYANI:
+
+LIST
+ * TUJUAN: mendapatkan daftar file
+ * PARAMETER: -
+ * RESPONSE BERHASIL:
+ {"status":"OK","data":["file1.txt","img.jpg",...]}
+ * RESPONSE GAGAL:
+ {"status":"ERROR","data":"pesan kesalahan"}
+
+GET <filename>
+ * TUJUAN: mengambil isi file dalam Base64
+ * PARAMETER1: nama file
+ * RESPONSE BERHASIL:
+ {"status":"OK","data_namafile":"file.txt","data_file":"<base64>"}
+ * RESPONSE GAGAL:
+ {"status":"ERROR","data":"pesan kesalahan"}
+
+UPLOAD <filename> <base64_data>
+ * TUJUAN: upload file baru dengan konten Base64
+ * PARAMETER1: nama file tujuan
+ * PARAMETER2: konten file dalam Base64 (tanpa newline)
+ * RESPONSE BERHASIL:
+ {"status":"OK","data":"File uploaded"}
+ * RESPONSE GAGAL:
+ {"status":"ERROR","data":"pesan kesalahan"}
+
+DELETE <filename>
+ * TUJUAN: menghapus file yang ada
+ * PARAMETER1: nama file
+ * RESPONSE BERHASIL:
+ {"status":"OK","data":"File deleted"}
+ * RESPONSE GAGAL:
+ {"status":"ERROR","data":"pesan kesalahan"}
